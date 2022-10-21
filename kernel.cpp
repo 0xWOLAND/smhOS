@@ -2,6 +2,18 @@
 #include "types.h"
 #include "gdt.h"
 #include "interrupts.h"
+#include "keyboard.h"
+
+void initScreen(){
+  
+  static uint16_t* VideoMemory = (uint16_t*)0xb8000;
+  uint8_t x,y;
+  for(y = 0; y < 25; y++)
+      for(x = 0; x < 80; x++)
+          VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | ' ';
+  x = 0;
+  y = 0;
+}
 
 void printf(char* str)
 {
@@ -55,10 +67,12 @@ extern "C" void callConstructors()
 
 extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot_magic*/)
 {
+    initScreen();
     printf("KERNEL MAIN");
 
     GlobalDescriptorTable gdt;
     InterruptManager interrupts(0x20, &gdt);
+    KeyboardDriver keyboard(&interrupts);
     interrupts.Activate();
 
     while(1);

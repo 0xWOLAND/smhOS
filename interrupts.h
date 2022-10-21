@@ -1,15 +1,31 @@
-
 #ifndef __INTERRUPTMANAGER_H
 #define __INTERRUPTMANAGER_H
 
     #include "gdt.h"
     #include "types.h"
     #include "port.h"
+    
+    class InterruptManager;
+
+    class InterruptHandler {
+        protected:
+            uint8_t interruptNumber;
+            InterruptManager* interruptManager;
+
+            InterruptHandler(uint8_t interruptNumber, InterruptManager* interruptManager);
+            ~InterruptHandler();
+        public:
+            virtual uint32_t HandleInterrupt(uint32_t esp);
+
+    };
 
     class InterruptManager
     {
-        //friend class InterruptHandler;
+        friend class InterruptHandler;
         protected:
+
+            static InterruptManager* ActiveInterruptManager;
+            InterruptHandler* handlers[256];
 
             struct GateDescriptor
             {
@@ -77,11 +93,12 @@
             static void HandleException0x13();
 
             static uint32_t HandleInterrupt(uint8_t interrupt, uint32_t esp);
+            uint32_t DoHandleInterrupt(uint8_t interrupt, uint32_t esp);
 
-            Port8BitSlow programmableInterruptControllerMasterCommandPort;
-            Port8BitSlow programmableInterruptControllerMasterDataPort;
-            Port8BitSlow programmableInterruptControllerSlaveCommandPort;
-            Port8BitSlow programmableInterruptControllerSlaveDataPort;
+            Port8BitSlow picMasterCommand;
+            Port8BitSlow picMasterData;
+            Port8BitSlow picSlaveCommand;
+            Port8BitSlow picSlaveData;
 
         public:
             InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescriptorTable* globalDescriptorTable);
