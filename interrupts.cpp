@@ -55,10 +55,10 @@ InterruptManager::InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescr
     for(uint8_t i = 255; i > 0; --i)
     {
         SetInterruptDescriptorTableEntry(i, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
-        //handlers[i] = 0;
+        handlers[i] = 0;
     }
     SetInterruptDescriptorTableEntry(0, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
-    //handlers[0] = 0;
+    handlers[0] = 0;
 
     SetInterruptDescriptorTableEntry(0x00, CodeSegment, &HandleException0x00, 0, IDT_INTERRUPT_GATE);
     SetInterruptDescriptorTableEntry(0x01, CodeSegment, &HandleException0x01, 0, IDT_INTERRUPT_GATE);

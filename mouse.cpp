@@ -9,10 +9,9 @@ MouseDriver::MouseDriver(InterruptManager* manager):
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
     x = 40, y = 12;
     VideoMemory[80 * y + x] = 
-        ((VideoMemory[80 * y + x] & 0xF000) << 4) | 
         ((VideoMemory[80 * y + x] & 0xF000) >> 4) | 
-        ((VideoMemory[80 * y + x] & 0xF000));
-
+        ((VideoMemory[80 * y + x] & 0x0F00) << 4) | 
+        ((VideoMemory[80 * y + x] & 0x00FF));
     commandport.Write(0xA8); //activate interrupts
     commandport.Write(0x20); // get current state
     uint8_t status = dataport.Read() | 2;
