@@ -6,7 +6,7 @@ GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-excep
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o gdt.o port.o interruptstubs.o interrupts.o kernel.o keyboard.o mouse.o
+objects = loader.o gdt.o port.o interruptstubs.o interrupts.o kernel.o keyboard.o mouse.o driver.o 
 
 
 run: mykernel.iso
@@ -41,3 +41,5 @@ install: mykernel.bin
 .PHONY: clean
 clean:
 	rm -f $(objects) mykernel.bin mykernel.iso
+
+build: clean run
