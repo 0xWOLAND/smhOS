@@ -53,10 +53,12 @@ uint32_t MouseDriver::HandleInterrupt(uint32_t esp){
 
     buffer[offset] = dataport.Read();
     offset = (offset + 1) % 3;
-
+    printf("HERE 0\n");
     if(offset == 0){
+        printf("HERE 1\n");
         if(buffer[1] != 0 || buffer[2] != 0){
 
+            printf("HERE 2\n");
             handler->onMouseMove(buffer[1], buffer[2]);
 
         }

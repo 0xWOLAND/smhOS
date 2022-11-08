@@ -1,4 +1,5 @@
 #include <drivers/driver.h>
+#include <common/types.h>
 using namespace smhos::common;
 using namespace smhos::drivers;
 

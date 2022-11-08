@@ -18,9 +18,9 @@ namespace smhos {
                 virtual void onMouseMove(int x, int y);
         };
 
-        class MouseDriver : public InterruptHandler, public Driver {
-            Port8Bit dataport;
-            Port8Bit commandport;
+        class MouseDriver : public smhos::hardware::InterruptHandler, public Driver {
+            smhos::hardware::Port8Bit dataport;
+            smhos::hardware::Port8Bit commandport;
 
             MouseEventHandler* handler;
             smhos::common::uint8_t buffer[3];
@@ -29,7 +29,7 @@ namespace smhos {
             public:
                 MouseDriver(smhos::hardware::InterruptManager* manager, MouseEventHandler* handler);
                 ~MouseDriver();
-                virtual uint32_t HandleInterrupt(uint32_t esp);
+                virtual smhos::common::uint32_t HandleInterrupt(smhos::common::uint32_t esp);
                 virtual void Activate();
         };
     }

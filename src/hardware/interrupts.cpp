@@ -4,8 +4,8 @@ using namespace smhos::common;
 using namespace smhos::hardware;
 
 
-// void printf(char*);
-// void printfHex(uint8_t);
+void printf(char*);
+void printfHex(uint8_t);
 
 
 InterruptHandler::InterruptHandler(uint8_t interruptNumber, InterruptManager* interruptManager){
