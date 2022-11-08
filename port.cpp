@@ -1,6 +1,4 @@
-#include <hardware/port.h>
-using namespace smhos::common;
-using namespace smhos::hardware;
+#include "port.h"
 
 Port::Port(uint16_t portnumber)
 {

@@ -1,7 +1,5 @@
 
-#include <hardware/interrupts.h>
-using namespace smhos::common;
-using namespace smhos::hardware;
+#include "interrupts.h"
 
 
 void printf(char*);

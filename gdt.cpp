@@ -1,6 +1,4 @@
-#include <gdt.h>
-using namespace smhos;
-using namespace smhos::common;
+#include "gdt.h"
 
 GlobalDescriptorTable::GlobalDescriptorTable() : 
   nullSegmentSelector(0,0,0),

@@ -1,7 +1,4 @@
-#include <drivers/keyboard.h>
-using namespace smhos::common;
-using namespace smhos::drivers;
-using namespace smhos::hardware;
+#include "keyboard.h"
 
 void printf(char*);
 void printfHex(uint8_t);

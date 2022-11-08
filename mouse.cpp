@@ -1,20 +1,22 @@
-#include <drivers/mouse.h>
-using namespace smhos::common;
-using namespace smhos::drivers;
-using namespace smhos::hardware;
+#include "mouse.h"
 
 void printf(char*);
 
 MouseEventHandler::MouseEventHandler() {
+
 }
 
 void MouseEventHandler::onActivate(){
+
 }
 void MouseEventHandler::onMouseDown(uint8_t button){
+
 }
 void MouseEventHandler::onMouseUp(uint8_t button){
+
 }
 void MouseEventHandler::onMouseMove(int x, int y){
+
 }
 MouseDriver::MouseDriver(InterruptManager* manager, MouseEventHandler* handler):
     InterruptHandler(0x2C, manager),
@@ -53,12 +55,10 @@ uint32_t MouseDriver::HandleInterrupt(uint32_t esp){
 
     buffer[offset] = dataport.Read();
     offset = (offset + 1) % 3;
-    printf("HERE 0\n");
+
     if(offset == 0){
-        printf("HERE 1\n");
         if(buffer[1] != 0 || buffer[2] != 0){
 
-            printf("HERE 2\n");
             handler->onMouseMove(buffer[1], buffer[2]);
 
         }

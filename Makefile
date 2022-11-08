@@ -2,30 +2,19 @@
 # sudo apt-get install g++ binutils libc6-dev-i386
 # sudo apt-get install VirtualBox grub-legacy xorriso
 
-GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
+GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = obj/loader.o \
-          obj/gdt.o \
-          obj/drivers/driver.o \
-          obj/hardware/port.o \
-          obj/hardware/interruptstubs.o \
-          obj/hardware/interrupts.o \
-          obj/drivers/keyboard.o \
-          obj/drivers/mouse.o \
-          obj/kernel.o
+objects = loader.o gdt.o port.o interruptstubs.o interrupts.o kernel.o keyboard.o mouse.o driver.o 
 
 
 run: mykernel.iso
 	qemu-system-i386 -cdrom mykernel.iso
-
-obj/%.o: src/%.cpp
-	mkdir -p $(@D)
+%.o: %.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-obj/%.o: src/%.s
-	mkdir -p $(@D)
+%.o: %.s
 	as $(ASPARAMS) -o $@ $<
 
 mykernel.bin: linker.ld $(objects)
@@ -51,4 +40,6 @@ install: mykernel.bin
 
 .PHONY: clean
 clean:
-	rm -rf obj mykernel.bin mykernel.iso
+	rm -f $(objects) mykernel.bin mykernel.iso
+
+build: clean run
