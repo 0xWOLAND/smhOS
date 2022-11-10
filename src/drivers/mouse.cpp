@@ -32,7 +32,7 @@ void MouseDriver::Activate() {
         handler->onActivate();
     commandport.Write(0xA8); //activate interrupts
     commandport.Write(0x20); // get current state
-    uint8_t status = dataport.Read() | 2;
+    smhos::common::uint8_t status = dataport.Read() | 2;
     commandport.Write(0x60); // set state
     dataport.Write(status);
     commandport.Write(0xD4);
@@ -46,7 +46,7 @@ MouseDriver::~MouseDriver(){
 
 
 uint32_t MouseDriver::HandleInterrupt(uint32_t esp){
-    uint8_t status = commandport.Read();
+    smhos::common::uint8_t status = commandport.Read();
     if(!(status & 0x20) || handler  == 0)
         return esp;
     

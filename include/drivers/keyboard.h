@@ -3,7 +3,7 @@
 
 #include <common/types.h>
 #include <hardware/interrupts.h>
-#include <driver/driver.h>
+#include <drivers/driver.h>
 #include <hardware/port.h>
 
 namespace smhos {
@@ -24,7 +24,7 @@ namespace smhos {
             public:
                 KeyboardDriver(smhos::hardware::InterruptManager* manager, KeyboardEventHandler* handler);
                 ~KeyboardDriver();
-                virtual uint32_t HandleInterrupt(uint32_t esp);
+                virtual smhos::common::uint32_t HandleInterrupt(smhos::common::uint32_t esp);
                 virtual void Activate();
         };
     }

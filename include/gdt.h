@@ -34,8 +34,8 @@ namespace smhos {
             GlobalDescriptorTable();
             ~GlobalDescriptorTable();
 
-            uint16_t CodeSegmentSelector();
-            uint16_t DataSegmentSelector();
+           smhos::common::uint16_t CodeSegmentSelector();
+           smhos::common::uint16_t DataSegmentSelector();
     };
 }  
 #endif

@@ -13,8 +13,8 @@ using namespace smhos::drivers;
 using namespace smhos::hardware;
 void initScreen(){
   
-  static uint16_t* VideoMemory = (uint16_t*)0xb8000;
-  uint8_t x,y;
+  static smhos::common::uint16_t* VideoMemory = (uint16_t*)0xb8000;
+  smhos::common::uint8_t x,y;
   for(y = 0; y < 25; y++)
       for(x = 0; x < 80; x++)
           VideoMemory[80*y+x] = (VideoMemory[80*y+x] & 0xFF00) | ' ';
@@ -24,9 +24,9 @@ void initScreen(){
 
 void printf(char* str)
 {
-    static uint16_t* VideoMemory = (uint16_t*)0xb8000;
+    static smhos::common::uint16_t* VideoMemory = (uint16_t*)0xb8000;
 
-    static uint8_t x=0,y=0;
+    static smhos::common::uint8_t x=0,y=0;
     
     for(int i = 0; str[i] != '\0'; ++i)
     {
@@ -96,7 +96,7 @@ class MouseToConsole: public MouseEventHandler {
         MouseToConsole() {
         }
         virtual void onActivate() {
-            static uint16_t* VideoMemory = (uint16_t*)0xb8000;
+            static smhos::common::uint16_t* VideoMemory = (uint16_t*)0xb8000;
             x = 40, y = 12;
             VideoMemory[80 * y + x] = 
                 ((VideoMemory[80 * y + x] & 0xF000) >> 4) | 
@@ -106,7 +106,7 @@ class MouseToConsole: public MouseEventHandler {
         
         virtual void onMouseMove(int xoffset, int yoffset) {
 
-            static uint16_t* VideoMemory = (uint16_t*)0xb8000;
+            static smhos::common::uint16_t* VideoMemory = (uint16_t*)0xb8000;
                 VideoMemory[80 * y + x] = 
                     ((VideoMemory[80 * y + x] & 0xF000) >> 4) | 
                     ((VideoMemory[80 * y + x] & 0x0F00) << 4) | 
@@ -127,7 +127,7 @@ class MouseToConsole: public MouseEventHandler {
         }
 };
 
-extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot_magic*/)
+extern "C" void kernelMain(const void* multiboot_structure, smhos::common::uint32_t /*multiboot_magic*/)
 {
     initScreen();
     printf("KERNEL MAIN");

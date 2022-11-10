@@ -17,7 +17,7 @@ namespace smhos {
                 InterruptHandler(smhos::common::uint8_t interruptNumber, InterruptManager* interruptManager);
                 ~InterruptHandler();
             public:
-                virtual uint32_t HandleInterrupt(smhos::common::uint32_t esp);
+                virtual smhos::common::uint32_t HandleInterrupt(smhos::common::uint32_t esp);
 
         };
 

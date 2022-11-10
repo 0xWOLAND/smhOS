@@ -36,7 +36,7 @@ void KeyboardDriver::Activate() {
     }
     commandport.Write(0xAE); // Tells PIC to start sending keyboard interrupts
     commandport.Write(0x20); // Give us your current state
-    uint8_t status = (dataport.Read() | 1) & ~0x10;
+    smhos::common::uint8_t status = (dataport.Read() | 1) & ~0x10;
     commandport.Write(0x60); // Tells PIC to change current state
     dataport.Write(status);
 
@@ -44,7 +44,7 @@ void KeyboardDriver::Activate() {
 }
 
 uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp){
-    uint8_t key = dataport.Read();
+    smhos::common::uint8_t key = dataport.Read();
 
     if(handler == 0){
         return esp;

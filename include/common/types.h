@@ -3,7 +3,7 @@
 
 // char, short, int, long long int
 
-namespace myos {
+namespace smhos {
   namespace common {
     typedef char int8_t;
     typedef unsigned char uint8_t;
